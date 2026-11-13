@@ -1,0 +1,6 @@
+name: observed_users_three_weeks
+prompt: 这三周一共触达了多少名用户？
+sql: |
+  SELECT COUNT(DISTINCT user_id) AS reached_users
+  FROM dws_vk_user_week
+  WHERE week_no IN (0, 1, 2)

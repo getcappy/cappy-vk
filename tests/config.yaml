@@ -1,0 +1,20 @@
+# Defaults for `cappy test`. Every key is optional: drop a key to keep its default.
+#
+# Models to compare: one run per model and per test case. An empty list runs every
+# test case with the model this Cappy instance is configured with.
+models: []
+# models:
+#   - deepseek:deepseek-v4-pro
+#   - anthropic:claude-sonnet-5-5
+
+# Test cases executed in parallel.
+threads: 1
+
+# Times each test case runs, used to compute pass@k and pass^k.
+k: 1
+
+# Tolerances used when comparing the agent result to the expected data.
+comparison:
+  rtol: 1.0e-5
+  atol: 1.0e-8
+  decimals: 2

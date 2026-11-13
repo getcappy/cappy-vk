@@ -1,0 +1,30 @@
+{
+  "revision": "084a18386e149a454dd6dbe0123478e75c6b09ce",
+  "files": {
+    "week_00.parquet": {
+      "path": "subsamples/up-0.9_ip-0.9/train/week_00.parquet",
+      "size": 817031150,
+      "sha256": "55d57fe3e3ae595a11ae7d1ab1124754291d2008e5d0ca8140dd1db12c0e7362"
+    },
+    "week_01.parquet": {
+      "path": "subsamples/up-0.9_ip-0.9/train/week_01.parquet",
+      "size": 1004659465,
+      "sha256": "89fc6925f78a83b8359078c2b92fa0b53d3460ade384f7307485cdf4cde69304"
+    },
+    "week_02.parquet": {
+      "path": "subsamples/up-0.9_ip-0.9/train/week_02.parquet",
+      "size": 1039809728,
+      "sha256": "130dd2d3c4fca90b0d125e9719550b96301577eefc36d52253c43c5e8d9de4c4"
+    },
+    "items_metadata.parquet": {
+      "path": "metadata/items_metadata.parquet",
+      "size": 155747843,
+      "sha256": "607ffd09d3fb6627f7eec07ed53583d45c47263a2e6538e4deee66cd8a22e51e"
+    },
+    "users_metadata.parquet": {
+      "path": "metadata/users_metadata.parquet",
+      "size": 72526148,
+      "sha256": "51fa9528f71bb0da947311d7baa4727d325285a3e748b54816477b82492aff20"
+    }
+  }
+}

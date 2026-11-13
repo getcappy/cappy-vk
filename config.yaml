@@ -1,0 +1,15 @@
+# Configuration documentation:
+# https://github.com/selectdb/cappy/blob/main/llms-wiki/05-context.md
+
+databases:
+  - name: vk-doris
+    type: doris
+    host: "{{ env('VK_DORIS_HOST') }}"
+    port: "{{ env('VK_DORIS_PORT') }}"
+    user: "{{ env('VK_DORIS_USER') }}"
+    password: "{{ env('VK_DORIS_PASSWORD') }}"
+    catalog: internal
+    database: cappy_vk_lsvd_3w
+    schema_name: cappy_vk_lsvd_3w
+    templates:
+      - columns

@@ -1,0 +1,8 @@
+name: android_search_reach
+prompt: W1 在 Android 端通过搜索结果入口触达了多少名用户？
+sql: |
+  SELECT COUNT(DISTINCT user_id) AS reached_users
+  FROM dwd_vk_video_exposure
+  WHERE week_no = 1
+    AND platform_code = 0
+    AND place_code = 6

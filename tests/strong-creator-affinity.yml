@@ -1,0 +1,26 @@
+name: strong_creator_affinity
+prompt: W1 的强作者偏好用户占比是多少？给出可判定用户数、强作者偏好用户数和占比（百分比保留两位小数）。
+sql: |
+  WITH per_author AS (
+      SELECT user_id, author_id, COUNT(DISTINCT item_id) AS video_count
+      FROM dwd_vk_video_exposure
+      WHERE week_no = 1 AND watch_seconds >= 10 AND author_id IS NOT NULL
+      GROUP BY user_id, author_id
+  ), ranked AS (
+      SELECT user_id, video_count,
+             RANK() OVER (
+                 PARTITION BY user_id ORDER BY video_count DESC
+             ) AS author_rank
+      FROM per_author
+  ), per_user AS (
+      SELECT user_id, SUM(video_count) AS total_videos,
+             SUM(IF(author_rank <= 3, video_count, 0)) AS top_three_videos
+      FROM ranked
+      GROUP BY user_id
+  )
+  SELECT COUNT(*) AS eligible_users,
+         COUNT(IF(2 * top_three_videos >= total_videos, 1, NULL)) AS strong_affinity_users,
+         ROUND(100.0 * COUNT(IF(2 * top_three_videos >= total_videos, 1, NULL))
+               / NULLIF(COUNT(*), 0), 2) AS strong_affinity_pct
+  FROM per_user
+  WHERE total_videos >= 10

@@ -1,0 +1,23 @@
+name: dormant_core_user_reactivation
+prompt: 以 W2 为回流周，沉默核心用户的有效回流率是多少？给出沉默核心用户数、有效回流人数和回流率（百分比保留两位小数）。
+sql: |
+  WITH core_users AS (
+      SELECT user_id
+      FROM dws_vk_user_week
+      WHERE week_no = 0 AND watch_seconds > 1800
+        AND (bookmarks > 0 OR shares > 0)
+  ), dormant_users AS (
+      SELECT c.user_id
+      FROM core_users c
+      LEFT JOIN dws_vk_user_week w1 ON w1.week_no = 1 AND w1.user_id = c.user_id
+      WHERE COALESCE(w1.watch_seconds, 0) <= 60
+        AND COALESCE(w1.bookmarks, 0) = 0 AND COALESCE(w1.shares, 0) = 0
+  ), outcomes AS (
+      SELECT COUNT(*) AS dormant_core_users,
+             COUNT(IF(w2.watch_seconds > 1800, 1, NULL)) AS reactivated_users
+      FROM dormant_users d
+      LEFT JOIN dws_vk_user_week w2 ON w2.week_no = 2 AND w2.user_id = d.user_id
+  )
+  SELECT dormant_core_users, reactivated_users,
+         ROUND(100.0 * reactivated_users / NULLIF(dormant_core_users, 0), 2) AS reactivation_pct
+  FROM outcomes

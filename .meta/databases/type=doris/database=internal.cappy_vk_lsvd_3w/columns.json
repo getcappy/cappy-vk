@@ -1,0 +1,349 @@
+{
+  "version": 1,
+  "schemas": {
+    "internal.cappy_vk_lsvd_3w": {
+      "ads_vk_user_tag_week": [
+        {
+          "name": "week_no",
+          "type": "tinyint"
+        },
+        {
+          "name": "tag_code",
+          "type": "varchar"
+        },
+        {
+          "name": "rule_version",
+          "type": "smallint"
+        },
+        {
+          "name": "members",
+          "type": "bitmap"
+        }
+      ],
+      "dim_vk_user": [
+        {
+          "name": "user_id",
+          "type": "int"
+        },
+        {
+          "name": "age_years",
+          "type": "smallint"
+        },
+        {
+          "name": "gender_code",
+          "type": "smallint"
+        },
+        {
+          "name": "geo_code",
+          "type": "smallint"
+        },
+        {
+          "name": "training_activity_rank",
+          "type": "int"
+        }
+      ],
+      "dim_vk_video": [
+        {
+          "name": "item_id",
+          "type": "int"
+        },
+        {
+          "name": "author_id",
+          "type": "int"
+        },
+        {
+          "name": "duration_seconds",
+          "type": "smallint"
+        },
+        {
+          "name": "training_popularity_rank",
+          "type": "int"
+        }
+      ],
+      "dwd_vk_video_exposure": [
+        {
+          "name": "week_no",
+          "type": "tinyint"
+        },
+        {
+          "name": "user_id",
+          "type": "int"
+        },
+        {
+          "name": "item_id",
+          "type": "int"
+        },
+        {
+          "name": "source_row_no",
+          "type": "bigint"
+        },
+        {
+          "name": "author_id",
+          "type": "int"
+        },
+        {
+          "name": "duration_seconds",
+          "type": "smallint"
+        },
+        {
+          "name": "place_code",
+          "type": "smallint"
+        },
+        {
+          "name": "platform_code",
+          "type": "smallint"
+        },
+        {
+          "name": "agent_code",
+          "type": "smallint"
+        },
+        {
+          "name": "watch_seconds",
+          "type": "smallint"
+        },
+        {
+          "name": "observed_complete",
+          "type": "tinyint"
+        },
+        {
+          "name": "liked",
+          "type": "tinyint"
+        },
+        {
+          "name": "disliked",
+          "type": "tinyint"
+        },
+        {
+          "name": "shared",
+          "type": "tinyint"
+        },
+        {
+          "name": "bookmarked",
+          "type": "tinyint"
+        },
+        {
+          "name": "clicked_author",
+          "type": "tinyint"
+        },
+        {
+          "name": "opened_comments",
+          "type": "tinyint"
+        }
+      ],
+      "dws_vk_user_week": [
+        {
+          "name": "week_no",
+          "type": "tinyint"
+        },
+        {
+          "name": "user_id",
+          "type": "int"
+        },
+        {
+          "name": "exposures",
+          "type": "bigint"
+        },
+        {
+          "name": "positive_watches",
+          "type": "bigint"
+        },
+        {
+          "name": "watch_seconds",
+          "type": "bigint"
+        },
+        {
+          "name": "watches_10s",
+          "type": "bigint"
+        },
+        {
+          "name": "observed_completions",
+          "type": "bigint"
+        },
+        {
+          "name": "measurable_completions",
+          "type": "bigint"
+        },
+        {
+          "name": "likes",
+          "type": "bigint"
+        },
+        {
+          "name": "dislikes",
+          "type": "bigint"
+        },
+        {
+          "name": "shares",
+          "type": "bigint"
+        },
+        {
+          "name": "bookmarks",
+          "type": "bigint"
+        },
+        {
+          "name": "author_clicks",
+          "type": "bigint"
+        },
+        {
+          "name": "comment_opens",
+          "type": "bigint"
+        }
+      ],
+      "dws_vk_video_week": [
+        {
+          "name": "week_no",
+          "type": "tinyint"
+        },
+        {
+          "name": "item_id",
+          "type": "int"
+        },
+        {
+          "name": "exposures",
+          "type": "bigint"
+        },
+        {
+          "name": "positive_watches",
+          "type": "bigint"
+        },
+        {
+          "name": "watch_seconds",
+          "type": "bigint"
+        },
+        {
+          "name": "watches_10s",
+          "type": "bigint"
+        },
+        {
+          "name": "observed_completions",
+          "type": "bigint"
+        },
+        {
+          "name": "measurable_completions",
+          "type": "bigint"
+        },
+        {
+          "name": "likes",
+          "type": "bigint"
+        },
+        {
+          "name": "dislikes",
+          "type": "bigint"
+        },
+        {
+          "name": "shares",
+          "type": "bigint"
+        },
+        {
+          "name": "bookmarks",
+          "type": "bigint"
+        },
+        {
+          "name": "author_clicks",
+          "type": "bigint"
+        },
+        {
+          "name": "comment_opens",
+          "type": "bigint"
+        }
+      ],
+      "ods_vk_interactions": [
+        {
+          "name": "week_no",
+          "type": "tinyint"
+        },
+        {
+          "name": "user_id",
+          "type": "int"
+        },
+        {
+          "name": "item_id",
+          "type": "int"
+        },
+        {
+          "name": "source_row_no",
+          "type": "bigint"
+        },
+        {
+          "name": "place",
+          "type": "smallint"
+        },
+        {
+          "name": "platform",
+          "type": "smallint"
+        },
+        {
+          "name": "agent",
+          "type": "smallint"
+        },
+        {
+          "name": "timespent",
+          "type": "smallint"
+        },
+        {
+          "name": "like",
+          "type": "tinyint"
+        },
+        {
+          "name": "dislike",
+          "type": "tinyint"
+        },
+        {
+          "name": "share",
+          "type": "tinyint"
+        },
+        {
+          "name": "bookmark",
+          "type": "tinyint"
+        },
+        {
+          "name": "click_on_author",
+          "type": "tinyint"
+        },
+        {
+          "name": "open_comments",
+          "type": "tinyint"
+        }
+      ],
+      "ods_vk_items": [
+        {
+          "name": "item_id",
+          "type": "int"
+        },
+        {
+          "name": "author_id",
+          "type": "int"
+        },
+        {
+          "name": "duration",
+          "type": "smallint"
+        },
+        {
+          "name": "train_interactions_rank",
+          "type": "int"
+        }
+      ],
+      "ods_vk_users": [
+        {
+          "name": "user_id",
+          "type": "int"
+        },
+        {
+          "name": "age",
+          "type": "smallint"
+        },
+        {
+          "name": "gender",
+          "type": "smallint"
+        },
+        {
+          "name": "geo",
+          "type": "smallint"
+        },
+        {
+          "name": "train_interactions_rank",
+          "type": "int"
+        }
+      ]
+    }
+  }
+}

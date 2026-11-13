@@ -1,0 +1,33 @@
+name: viewing_feedback_lag_correlation
+prompt: W0 到 W2，同一批用户观看得越来越深入，随后也会更常收藏或分享吗？给出两个指标各周的百分比、配对人数和变化的相关系数。
+sql: |
+  WITH user_week AS (
+      SELECT week_no, user_id, COUNT(*) AS exposures,
+             CAST(SUM(IF(watch_seconds >= 10, 1, 0)) AS DOUBLE) / COUNT(*) AS view_rate,
+             CAST(SUM(IF(bookmarked OR shared, 1, 0)) AS DOUBLE) / COUNT(*) AS feedback_rate
+      FROM dwd_vk_video_exposure
+      WHERE week_no IN (0, 1, 2)
+      GROUP BY week_no, user_id
+      HAVING COUNT(*) >= 10
+  ), cohort AS (
+      SELECT user_id, MIN(exposures) AS min_exposures,
+             MAX(IF(week_no = 0, view_rate, NULL)) AS v0,
+             MAX(IF(week_no = 1, view_rate, NULL)) AS v1,
+             MAX(IF(week_no = 2, view_rate, NULL)) AS v2,
+             MAX(IF(week_no = 0, feedback_rate, NULL)) AS f0,
+             MAX(IF(week_no = 1, feedback_rate, NULL)) AS f1,
+             MAX(IF(week_no = 2, feedback_rate, NULL)) AS f2
+      FROM user_week
+      GROUP BY user_id HAVING COUNT(*) = 3
+  ), pairs AS (
+      SELECT cohort.*, (v1 - v0) * 100 AS x_pp, (f2 - f1) * 100 AS y_pp
+      FROM cohort
+  )
+  SELECT COUNT(*) AS paired_users, ROUND(CASE WHEN COUNT(*) >= 2 AND MIN(x_pp) < MAX(x_pp) AND MIN(y_pp) < MAX(y_pp) THEN CORR(x_pp, y_pp) END, 6) AS lag_r,
+         ROUND(100 * AVG(v0), 4) AS view_w0_pct,
+         ROUND(100 * AVG(v1), 4) AS view_w1_pct,
+         ROUND(100 * AVG(v2), 4) AS view_w2_pct,
+         ROUND(100 * AVG(f0), 4) AS feedback_w0_pct,
+         ROUND(100 * AVG(f1), 4) AS feedback_w1_pct,
+         ROUND(100 * AVG(f2), 4) AS feedback_w2_pct
+  FROM pairs

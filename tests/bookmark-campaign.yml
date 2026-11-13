@@ -1,0 +1,19 @@
+name: newly_eligible_later_bookmarkers
+prompt: 三周收藏活动里，如果短视频看完也算有效观看，净新增名单中有多少人下一周收藏了视频？只给人数。
+sql: |
+  WITH w1 AS (
+      SELECT user_id,
+             SUM(IF(watch_seconds >= 10, 1, 0)) AS regular_views,
+             SUM(IF(watch_seconds >= 10 OR
+                    (duration_seconds BETWEEN 1 AND 9 AND watch_seconds >= duration_seconds), 1, 0)) AS campaign_views,
+             SUM(IF(bookmarked, 1, 0)) AS bookmarks
+      FROM dwd_vk_video_exposure
+      WHERE week_no = 1
+      GROUP BY user_id
+  )
+  SELECT COUNT(*) AS newly_eligible_later_bookmarkers
+  FROM w1
+  JOIN dws_vk_user_week w0 ON w0.user_id = w1.user_id AND w0.week_no = 0
+  JOIN dws_vk_user_week w2 ON w2.user_id = w1.user_id AND w2.week_no = 2
+  WHERE w0.bookmarks = 0 AND w1.bookmarks = 0
+    AND w1.regular_views < 3 AND w1.campaign_views >= 3 AND w2.bookmarks > 0

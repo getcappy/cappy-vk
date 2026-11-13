@@ -1,0 +1,1 @@
+CREATE DATABASE IF NOT EXISTS cappy_vk_lsvd_3w;
